@@ -25,12 +25,13 @@ public class BlinkDagger extends Item {
         double zDirection = Math.cos(yaw);
 
         // Define the teleportation distance (adjust as needed)
-        double teleportDistance = 10.0;
+        double teleportDistance = 20.0;
 
         // Calculate the new position
         double newX = pPlayer.getX() + xDirection * teleportDistance;
         double newY = pPlayer.getY();  // Keep the same Y-coordinate
         double newZ = pPlayer.getZ() + zDirection * teleportDistance;
+
 
         // Teleport the player to the new position
         pPlayer.teleportTo(newX, newY, newZ);
