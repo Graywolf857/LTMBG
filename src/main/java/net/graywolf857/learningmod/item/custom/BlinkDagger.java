@@ -8,23 +8,42 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BlinkDagger extends Item {
+
     public BlinkDagger(Properties pProperties) {
         super(pProperties);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        // Get the player's yaw rotation in radians (horizontal rotation)
+        float yaw = pPlayer.getYRot() * ((float) Math.PI / 180.0F);
 
-        Direction direction = pPlayer.getDirection();
+        // Calculate the direction vector based on the yaw
+        double xDirection = -Math.sin(yaw);
+        double zDirection = Math.cos(yaw);
 
-        pPlayer.teleportTo(pPlayer.getX() + 10, pPlayer.getY(), pPlayer.getZ());
+        // Define the teleportation distance (adjust as needed)
+        double teleportDistance = 10.0;
+
+        // Calculate the new position
+        double newX = pPlayer.getX() + xDirection * teleportDistance;
+        double newY = pPlayer.getY();  // Keep the same Y-coordinate
+        double newZ = pPlayer.getZ() + zDirection * teleportDistance;
+
+        // Teleport the player to the new position
+        pPlayer.teleportTo(newX, newY, newZ);
 
         return super.use(pLevel, pPlayer, pUsedHand);
     }
+
 }
+
+
 
 
 
